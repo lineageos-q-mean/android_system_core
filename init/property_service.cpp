@@ -809,6 +809,7 @@ static const char *snet_prop_key[] = {
     "ro.vendor.build.type",
     "ro.product.build.type",
     "ro.odm.build.type",
+    "ro.oem_unlock_supported",
     "ro.build.keys",
     "ro.build.tags",
     "ro.system.build.tags",
@@ -839,6 +840,7 @@ static const char *snet_prop_value[] = {
     "user", // ro.vendor.build.type
     "user", // ro.product.build.type
     "user", // ro.odm.build.type
+    "0", //ro.oem_unlock_supported
     "release-keys", // ro.build.keys
     "release-keys", // ro.build.tags
     "release-keys", // ro.system.build.tags
