@@ -800,6 +800,8 @@ static const char *snet_prop_key[] = {
 	"ro.boot.warranty_bit",
 	"ro.warranty_bit",
 	"ro.debuggable",
+     "ro.force.debuggable",
+     "ro.adb.secure",
 	"ro.secure",
 	"ro.bootimage.build.type",
 	"ro.build.type",
@@ -818,6 +820,7 @@ static const char *snet_prop_key[] = {
 	"vendor.boot.vbmeta.device_state",
 	"vendor.boot.verifiedbootstate",
 	"oplusboot.verifiedbootstate",
+     "sys.oem_unlock_allowed",
 	NULL
 };
 
@@ -830,6 +833,8 @@ static const char *snet_prop_value[] = {
 	"0",
 	"0",
 	"0",
+     "0",
+     "1",
 	"1",
 	"user",
 	"user",
@@ -848,6 +853,7 @@ static const char *snet_prop_value[] = {
 	"locked",
 	"green",
 	"green",
+     "0",
 	NULL
 };
 
