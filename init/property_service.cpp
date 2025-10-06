@@ -793,63 +793,61 @@ static void load_override_properties() {
 /* From Magisk@jni/magiskhide/hide_utils.c */
 static const char *snet_prop_key[] = {
     "ro.boot.vbmeta.device_state",
-    "ro.boot.verifiedbootstate",
-    "ro.boot.flash.locked",
-    "ro.boot.veritymode",
-    "ro.boot.warranty_bit",
-    "ro.warranty_bit",
-    "ro.debuggable",
-    "ro.force.debuggable",
-    "ro.secure",
-    "ro.bootimage.build.type"
-    "ro.adb.secure",
-    "ro.build.type",
-    "ro.system.build.type",
-    "ro.system_ext.build.type",
-    "ro.vendor.build.type",
-    "ro.product.build.type",
-    "ro.odm.build.type",
-    "ro.oem_unlock_supported",
-    "ro.build.keys",
-    "ro.build.tags",
-    "ro.system.build.tags",
-    "ro.vendor.boot.warranty_bit",
-    "ro.vendor.warranty_bit",
-    "vendor.boot.vbmeta.device_state",
-    "vendor.boot.verifiedbootstate",
-    "ro.vendor_dlkm.build.type",
-    "sys.oem_unlock_allowed",
+	"ro.boot.verifiedbootstate",
+	"ro.boot.flash.locked",
+	"ro.boot.selinux",
+	"ro.boot.veritymode",
+	"ro.boot.warranty_bit",
+	"ro.warranty_bit",
+	"ro.debuggable",
+	"ro.secure",
+	"ro.bootimage.build.type",
+	"ro.build.type",
+	"ro.build.keys",
+	"ro.build.tags",
+	"ro.system.build.tags",
+	"ro.oem_unlock_supported",
+	"ro.product.build.type",
+	"ro.odm.build.type",
+	"ro.system.build.type",
+	"ro.system_ext.build.type",
+	"ro.vendor.build.type",
+	"ro.vendor_dlkm.build.type",
+	"ro.vendor.boot.warranty_bit",
+	"ro.vendor.warranty_bit",
+	"vendor.boot.vbmeta.device_state",
+	"vendor.boot.verifiedbootstate",
+	"oplusboot.verifiedbootstate",
 	NULL
 };
 
 static const char *snet_prop_value[] = {
-    "locked", // ro.boot.vbmeta.device_state
-    "green", // ro.boot.verifiedbootstate
-    "1", // ro.boot.flash.locked
-    "enforcing", // ro.boot.veritymode
-    "0", // ro.boot.warranty_bit
-    "0", // ro.warranty_bit
-    "0", // ro.debuggable
-    "0", // ro.force.debuggable
-    "1", // ro.secure
-    "user", // ro.bootimage.build.type
-    "1", // ro.adb.secure
-    "user", // ro.build.type
-    "user", // ro.system.build.type
-    "user", // ro.system_ext.build.type
-    "user", // ro.vendor.build.type
-    "user", // ro.product.build.type
-    "user", // ro.odm.build.type
-    "0", //ro.oem_unlock_supported
-    "release-keys", // ro.build.keys
-    "release-keys", // ro.build.tags
-    "release-keys", // ro.system.build.tags
-    "0", // ro.vendor.boot.warranty_bit
-    "0", // ro.vendor.warranty_bit
-    "locked", // vendor.boot.vbmeta.device_state
-    "green", // vendor.boot.verifiedbootstate
-    "user", // ro.vendor_dlkm.build.type
-    "0", // sys.oem_unlock_allowed
+    "locked",
+	"green",
+	"1",
+	"enforcing",
+	"enforcing",
+	"0",
+	"0",
+	"0",
+	"1",
+	"user",
+	"user",
+	"release-keys",
+	"release-keys",
+	"release-keys",
+	"0",
+	"user",
+	"user",
+	"user",
+	"user",
+	"user",
+	"user",
+	"0",
+	"0",
+	"locked",
+	"green",
+	"green",
 	NULL
 };
 
@@ -1014,12 +1012,15 @@ void property_load_boot_defaults(bool load_debug_prop) {
     property_initialize_ro_product_props();
     property_derive_build_fingerprint();
 
+	std::string build_type = GetProperty("ro.build.type", "");
+    if (build_type == "user") {
+        // Workaround SafetyNet
+        workaround_snet_properties();
+    }
+	
     if (android::base::GetBoolProperty("ro.persistent_properties.ready", false)) {
         update_sys_usb_config();
     }
-
-    // Workaround SafetyNet
-    workaround_snet_properties();
 
     // Restore the normal property override security after init extension is executed
     weaken_prop_override_security = false;
