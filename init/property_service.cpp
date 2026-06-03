@@ -820,7 +820,8 @@ static const char *snet_prop_key[] = {
 	"vendor.boot.vbmeta.device_state",
 	"vendor.boot.verifiedbootstate",
 	"oplusboot.verifiedbootstate",
-     "sys.oem_unlock_allowed",
+    "sys.oem_unlock_allowed",
+    "ro.is_ever_orange",
 	NULL
 };
 
@@ -833,8 +834,8 @@ static const char *snet_prop_value[] = {
 	"0",
 	"0",
 	"0",
-     "0",
-     "1",
+    "0",
+    "1",
 	"1",
 	"user",
 	"user",
@@ -853,7 +854,8 @@ static const char *snet_prop_value[] = {
 	"locked",
 	"green",
 	"green",
-     "0",
+    "0",
+    "0",
 	NULL
 };
 
